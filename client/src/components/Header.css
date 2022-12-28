@@ -1,0 +1,25 @@
+.header-container {
+  background-color: #263159;
+  color: #fff;
+  height: 54px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  padding: 0px 15px;
+}
+
+.footer-container {
+  background-color: #263159;
+  color: #fff;
+  height: 54px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+}
+
+.header-right-panel {
+  display: flex;
+  gap: 45px;
+}
