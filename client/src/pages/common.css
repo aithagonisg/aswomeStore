@@ -1,3 +1,4 @@
 .body-container {
   height: calc(100vh - 108px);
+  overflow-y: auto;
 }
