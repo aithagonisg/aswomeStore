@@ -8,7 +8,9 @@ import RegisterationPage from "./RegisterationPage";
 import Footer from "../components/Footer";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Typography } from "@material-ui/core";
+import NonSecureRoute from "./Routes/NonSecureRoute";
 import "./common.css";
+import SecureRoute from "./Routes/SecureRoute";
 
 export default function Home() {
   return (
@@ -16,20 +18,17 @@ export default function Home() {
       <Header />
       <div className="body-container">
         <Switch>
-          <Route exact path="/">
-            <Body />
-          </Route>
-          <Route path="/about">
-            <AboutUsPage />
-          </Route>
+          <SecureRoute path="/about" Component={AboutUsPage} />
           <Route path="/contact">
             <ContactUsPage />
           </Route>
-          <Route path="/register">
-            <RegisterationPage />
-          </Route>
-          <Route path="/login">
-            <LoginPage />
+          <NonSecureRoute
+            path="/register"
+            Component={RegisterationPage}
+          ></NonSecureRoute>
+          <NonSecureRoute path="/login" Component={LoginPage} />
+          <Route exact path="/">
+            <Body />
           </Route>
           <Route path="*">
             <Typography variant="h1" component="h2">
