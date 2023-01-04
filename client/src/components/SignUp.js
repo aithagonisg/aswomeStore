@@ -8,6 +8,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import { loginAndRegister } from "../services/API";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -38,7 +39,9 @@ export default function SignUp() {
   };
 
   const handleRegister = () => {
-    console.log("user is registered", registration);
+    loginAndRegister("register", registration)
+      .then((item) => item.json())
+      .then((info) => console.log(info));
   };
 
   return (

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { getProducts } from "../services/API";
 import ProductCard from "./Card";
 
 export default function Body() {
   const [products, setProducts] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:8080/products")
+    getProducts("products")
       .then((item) => item.json())
       .then((res) => setProducts(res));
   }, []);
