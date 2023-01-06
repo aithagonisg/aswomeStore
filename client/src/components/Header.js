@@ -6,6 +6,8 @@ import "./Header.css";
 import { alpha, makeStyles } from "@material-ui/core";
 import logo from "../images/logo.png";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import UserInfo from "./UserInfo";
 //before login/register and after login/register
 
 const useStyles = makeStyles((theme) => ({
@@ -49,6 +51,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Header() {
+  const { info } = useSelector((state) => state.userInfo);
   const classes = useStyles();
   return (
     <div className="header-container">
@@ -77,21 +80,36 @@ export default function Header() {
         </div>
       </div>
       <div className="header-right-panel">
-        <div>
-          <Link to="/contact" style={{ color: "#fff", textDecoration: "none" }}>
-            Contact Us
-          </Link>
-        </div>
-        <div>
-          <Link to="/about" style={{ color: "#fff", textDecoration: "none" }}>
-            About Us
-          </Link>
-        </div>
-        <div>
-          <Link to="/login" style={{ color: "#fff", textDecoration: "none" }}>
-            Login/register
-          </Link>
-        </div>
+        {!info.token ? (
+          <>
+            <div>
+              <Link
+                to="/contact"
+                style={{ color: "#fff", textDecoration: "none" }}
+              >
+                Contact Us
+              </Link>
+            </div>
+            <div>
+              <Link
+                to="/about"
+                style={{ color: "#fff", textDecoration: "none" }}
+              >
+                About Us
+              </Link>
+            </div>
+            <div>
+              <Link
+                to="/login"
+                style={{ color: "#fff", textDecoration: "none" }}
+              >
+                Login/register
+              </Link>
+            </div>
+          </>
+        ) : (
+          <UserInfo userInfo={info} />
+        )}
       </div>
     </div>
   );
