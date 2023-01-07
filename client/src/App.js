@@ -11,7 +11,6 @@ function App() {
   useEffect(() => {
     dispatch(setUserInfo({ ...userInfo, token }));
   }, []);
-
   return (
     <div className="App">
       <Home />

@@ -3,14 +3,15 @@ import Header from "../components/Header";
 import Body from "../components/Body";
 import ContactUsPage from "./ContactUsPage";
 import AboutUsPage from "./AboutUsPage";
+import SecureRoute from "./Routes/SecureRoute";
 import LoginPage from "./LoginPage";
 import RegisterationPage from "./RegisterationPage";
 import Footer from "../components/Footer";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Typography } from "@material-ui/core";
 import NonSecureRoute from "./Routes/NonSecureRoute";
+import ProductDescriptionPage from "../components/ProductDescriptionPage";
 import "./common.css";
-import SecureRoute from "./Routes/SecureRoute";
 
 export default function Home() {
   return (
@@ -19,6 +20,10 @@ export default function Home() {
       <div className="body-container">
         <Switch>
           <SecureRoute path="/about" Component={AboutUsPage} />
+          <SecureRoute
+            path="/productDescription"
+            Component={ProductDescriptionPage}
+          />
           <Route path="/contact">
             <ContactUsPage />
           </Route>
@@ -37,7 +42,6 @@ export default function Home() {
           </Route>
         </Switch>
       </div>
-
       <Footer />
     </Router>
   );

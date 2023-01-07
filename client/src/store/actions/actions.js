@@ -1,5 +1,16 @@
-import { loginAndRegister } from "../../services/API";
-import { USER_INFO } from "./actionTypes";
+import {
+  loginAndRegister,
+  getCartAndOrders,
+  getProducts,
+} from "../../services/API";
+import { USER_INFO, CART_ORDERS, PRODUCTS, SHOW_PROGRESS } from "./actionTypes";
+
+//our own actions
+
+export const showProgress = (data) => ({
+  type: SHOW_PROGRESS,
+  payload: data,
+});
 
 //synchronous
 export const setUserInfo = (data) => ({
@@ -7,6 +18,15 @@ export const setUserInfo = (data) => ({
   payload: data,
 });
 
+export const setCartAndOrders = (data) => ({
+  type: CART_ORDERS,
+  payload: data,
+});
+
+export const setProducts = (data) => ({
+  type: PRODUCTS,
+  payload: data,
+});
 //async
 
 export const setLoginInfo = (pathname, userinfo) => {
@@ -24,6 +44,26 @@ export const setLoginInfo = (pathname, userinfo) => {
           })
         );
         dispatch(setUserInfo(info));
+      });
+  };
+};
+
+export const setCartAndOrderList = () => {
+  return (dispatch) => {
+    getCartAndOrders()
+      .then((res) => res.json())
+      .then((cart) => {
+        dispatch(setCartAndOrders(cart));
+      });
+  };
+};
+
+export const setProductsList = () => {
+  return (dispatch) => {
+    getProducts()
+      .then((res) => res.json())
+      .then((products) => {
+        dispatch(setProducts(products));
       });
   };
 };

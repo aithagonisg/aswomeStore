@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { getProducts } from "../services/API";
+import { useDispatch, useSelector } from "react-redux";
 import ProductCard from "./Card";
+import Root from "../StatusList/Root";
+import { setProductsList } from "../store/actions/actions";
 
 export default function Body() {
-  const [products, setProducts] = useState([]);
   const { info } = useSelector((state) => state.userInfo);
+  const products = useSelector((state) => state.prouducts);
+  const dispatch = useDispatch();
   useEffect(() => {
-    getProducts("products")
-      .then((item) => item.json())
-      .then((res) => setProducts(res));
+    dispatch(setProductsList());
   }, []);
   return (
     <>
       {!info.token ? (
-        <div>Show graph data</div>
+        <Root />
       ) : (
         <div className="card-root">
           {products.map((item) => (

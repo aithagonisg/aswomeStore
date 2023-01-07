@@ -7,8 +7,8 @@ import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Avatar from "@material-ui/core/Avatar";
-import { useDispatch } from "react-redux";
-import { setUserInfo } from "../store/actions/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { setCartAndOrderList, setUserInfo } from "../store/actions/actions";
 
 const StyledBadge = withStyles((theme) => ({
   badge: {
@@ -23,7 +23,8 @@ export default function UserInfo({ userInfo }) {
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [userName, setUserName] = React.useState("");
-
+  const [cartBadge, setCartBadge] = React.useState(0);
+  const { cart } = useSelector((state) => state.cartAndOrder);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -31,6 +32,9 @@ export default function UserInfo({ userInfo }) {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  useEffect(() => {
+    dispatch(setCartAndOrderList());
+  }, []);
 
   useEffect(() => {
     setUserName(
@@ -39,16 +43,19 @@ export default function UserInfo({ userInfo }) {
     );
   }, [userInfo]);
 
+  useEffect(() => {
+    setCartBadge(cart?.cart.length);
+  }, [cart]);
+
   const handleLogout = () => {
     dispatch(setUserInfo({}));
     localStorage.clear();
     handleClose();
   };
-
   return (
     <div className="userInfo">
       <IconButton aria-label="cart" style={{ color: "#fff" }}>
-        <StyledBadge badgeContent={4} color="secondary">
+        <StyledBadge badgeContent={cartBadge} color="secondary">
           <ShoppingCartIcon />
         </StyledBadge>
       </IconButton>

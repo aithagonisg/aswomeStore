@@ -1,6 +1,7 @@
 import React from "react";
 import Tooltip from "@material-ui/core/Tooltip";
 import { makeStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
 import "./common.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -47,7 +48,11 @@ export default function ProductCard({ cardInfo }) {
         <div className="product-category">{cardInfo.product_category}</div>
         <div className="product-name">{cardInfo.product_name}</div>
       </div>
-      <img src={cardInfo.image} className="product-image" />
+      <Link
+        to={{ pathname: `/productDescription`, state: { id: cardInfo._id } }}
+      >
+        <img src={cardInfo.image} className="product-image" />
+      </Link>
       <Tooltip title={cardInfo.productDetails.Description} arrow>
         <div className="product-des">{cardInfo.productDetails.Description}</div>
       </Tooltip>
