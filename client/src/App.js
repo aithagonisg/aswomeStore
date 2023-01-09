@@ -1,8 +1,12 @@
 import React, { useEffect } from "react";
 import "./App.css";
 import Home from "./pages/Home";
+import { BrowserRouter as Router } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUserInfo } from "./store/actions/actions";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import ProgressBar from "./components/Progress";
 
 function App() {
   const dispatch = useDispatch();
@@ -13,7 +17,12 @@ function App() {
   }, []);
   return (
     <div className="App">
-      <Home />
+      <Router>
+        <Header />
+        <ProgressBar />
+        <Home />
+        <Footer />
+      </Router>
     </div>
   );
 }

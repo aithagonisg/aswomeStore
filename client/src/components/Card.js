@@ -1,8 +1,10 @@
 import React from "react";
 import Tooltip from "@material-ui/core/Tooltip";
 import { makeStyles } from "@material-ui/core/styles";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import "./common.css";
+import { setAddToCart } from "../store/actions/actions";
 
 const useStyles = makeStyles((theme) => ({
   ribbon: {
@@ -37,6 +39,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ProductCard({ cardInfo }) {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const handleCart = (cartData) => {
+    dispatch(setAddToCart(cartData));
+  };
   return (
     <div className="card-container">
       {cardInfo.productDetails.isNewStock && (
@@ -61,7 +67,9 @@ export default function ProductCard({ cardInfo }) {
         <div className="product-price">
           {cardInfo.productDetails.price} &#8377;
         </div>
-        <button className="add-cart">Add To Cart</button>
+        <button className="add-cart" onClick={() => handleCart(cardInfo)}>
+          Add To Cart
+        </button>
       </div>
     </div>
   );

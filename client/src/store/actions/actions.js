@@ -2,6 +2,7 @@ import {
   loginAndRegister,
   getCartAndOrders,
   getProducts,
+  addToCart,
 } from "../../services/API";
 import { USER_INFO, CART_ORDERS, PRODUCTS, SHOW_PROGRESS } from "./actionTypes";
 
@@ -31,19 +32,33 @@ export const setProducts = (data) => ({
 
 export const setLoginInfo = (pathname, userinfo) => {
   return (dispatch) => {
-    loginAndRegister(pathname, userinfo)
+    dispatch(showProgress(true));
+    setTimeout(() => {
+      loginAndRegister(pathname, userinfo)
+        .then((res) => res.json())
+        .then((info) => {
+          localStorage.setItem("authToken", info.token);
+          localStorage.setItem(
+            "userInfo",
+            JSON.stringify({
+              firstName: info.firstName,
+              lastName: info.lastName,
+              email: info.email,
+            })
+          );
+          dispatch(setUserInfo(info));
+          dispatch(showProgress(false));
+        });
+    }, 2000);
+  };
+};
+
+export const setAddToCart = (data) => {
+  return (dispatch) => {
+    addToCart(data)
       .then((res) => res.json())
-      .then((info) => {
-        localStorage.setItem("authToken", info.token);
-        localStorage.setItem(
-          "userInfo",
-          JSON.stringify({
-            firstName: info.firstName,
-            lastName: info.lastName,
-            email: info.email,
-          })
-        );
-        dispatch(setUserInfo(info));
+      .then((cart) => {
+        dispatch(setCartAndOrderList());
       });
   };
 };

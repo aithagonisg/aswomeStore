@@ -40,3 +40,41 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.product-details {
+  display: flex;
+  align-items: center;
+  height: 440px;
+  margin: 40px 120px;
+  background-color: #fff;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+}
+.product-details-image {
+  height: 400px;
+  width: 400px;
+}
+
+.details {
+  width: 400px;
+  height: 400px;
+  margin-left: 20px;
+  text-align: left;
+}
+
+.category {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.product-name {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.des-details {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 10px;
+  font-size: 20px;
+}

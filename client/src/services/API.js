@@ -11,6 +11,26 @@ export const loginAndRegister = (pathName, data) => {
   });
 };
 
+export const addToCart = (data) => {
+  return fetch(`${API_ORIGIN}/addtocart`, {
+    method: "POST",
+    headers: {
+      authorization: `Barrer ${token}`,
+    },
+    body: JSON.stringify(data),
+  });
+};
+
+export const removeFromCart = (data) => {
+  return fetch(`${API_ORIGIN}/removefromcart`, {
+    method: "POST",
+    headers: {
+      authorization: `Barrer ${token}`,
+    },
+    body: JSON.stringify(data),
+  });
+};
+
 export const getProducts = () => {
   return fetch(`${API_ORIGIN}/products`);
 };

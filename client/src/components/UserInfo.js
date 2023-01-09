@@ -8,7 +8,11 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Avatar from "@material-ui/core/Avatar";
 import { useDispatch, useSelector } from "react-redux";
-import { setCartAndOrderList, setUserInfo } from "../store/actions/actions";
+import {
+  setCartAndOrderList,
+  setUserInfo,
+  showProgress,
+} from "../store/actions/actions";
 
 const StyledBadge = withStyles((theme) => ({
   badge: {
@@ -48,9 +52,13 @@ export default function UserInfo({ userInfo }) {
   }, [cart]);
 
   const handleLogout = () => {
-    dispatch(setUserInfo({}));
-    localStorage.clear();
-    handleClose();
+    dispatch(showProgress(true));
+    setTimeout(() => {
+      dispatch(setUserInfo({}));
+      localStorage.clear();
+      dispatch(showProgress(false));
+      handleClose();
+    }, 2000);
   };
   return (
     <div className="userInfo">
