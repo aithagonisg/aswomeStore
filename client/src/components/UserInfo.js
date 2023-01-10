@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import Badge from "@material-ui/core/Badge";
+import { useHistory } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
@@ -42,8 +43,8 @@ export default function UserInfo({ userInfo }) {
 
   useEffect(() => {
     setUserName(
-      userInfo.firstName.toUpperCase().charAt(0) +
-        userInfo.lastName.toUpperCase().charAt(0)
+      userInfo?.firstName?.toUpperCase().charAt(0) +
+        userInfo?.lastName?.toUpperCase().charAt(0)
     );
   }, [userInfo]);
 
@@ -60,10 +61,19 @@ export default function UserInfo({ userInfo }) {
       handleClose();
     }, 2000);
   };
+
+  const history = useHistory();
+  const handleNavigateCart = () => {
+    history.push("/cartPage");
+  };
   return (
     <div className="userInfo">
       <IconButton aria-label="cart" style={{ color: "#fff" }}>
-        <StyledBadge badgeContent={cartBadge} color="secondary">
+        <StyledBadge
+          badgeContent={cartBadge}
+          color="secondary"
+          onClick={handleNavigateCart}
+        >
           <ShoppingCartIcon />
         </StyledBadge>
       </IconButton>

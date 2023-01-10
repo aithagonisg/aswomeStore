@@ -4,12 +4,23 @@ import {
   getProducts,
   addToCart,
 } from "../../services/API";
-import { USER_INFO, CART_ORDERS, PRODUCTS, SHOW_PROGRESS } from "./actionTypes";
+import {
+  USER_INFO,
+  CART_ORDERS,
+  PRODUCTS,
+  SHOW_PROGRESS,
+  SHOW_TOASTER,
+} from "./actionTypes";
 
 //our own actions
 
 export const showProgress = (data) => ({
   type: SHOW_PROGRESS,
+  payload: data,
+});
+
+export const showToaster = (data) => ({
+  type: SHOW_TOASTER,
   payload: data,
 });
 
@@ -37,16 +48,38 @@ export const setLoginInfo = (pathname, userinfo) => {
       loginAndRegister(pathname, userinfo)
         .then((res) => res.json())
         .then((info) => {
-          localStorage.setItem("authToken", info.token);
-          localStorage.setItem(
-            "userInfo",
-            JSON.stringify({
-              firstName: info.firstName,
-              lastName: info.lastName,
-              email: info.email,
-            })
-          );
-          dispatch(setUserInfo(info));
+          console.log(info);
+          if (typeof info === "string") {
+            dispatch(
+              showToaster({
+                open: true,
+                duration: 2000,
+                severity: "error",
+                message: info,
+              })
+            );
+            setTimeout(() => {
+              dispatch(
+                showToaster({
+                  open: false,
+                  duration: 2000,
+                  severity: "error",
+                  message: "",
+                })
+              );
+            }, 2000);
+          } else {
+            localStorage.setItem("authToken", info.token);
+            localStorage.setItem(
+              "userInfo",
+              JSON.stringify({
+                firstName: info.firstName,
+                lastName: info.lastName,
+                email: info.email,
+              })
+            );
+            dispatch(setUserInfo(info));
+          }
           dispatch(showProgress(false));
         });
     }, 2000);

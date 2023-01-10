@@ -14,10 +14,11 @@ export const loginAndRegister = (pathName, data) => {
 export const addToCart = (data) => {
   return fetch(`${API_ORIGIN}/addtocart`, {
     method: "POST",
-    headers: {
-      authorization: `Barrer ${token}`,
-    },
     body: JSON.stringify(data),
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+      authorization: `Bearer ${token}`,
+    },
   });
 };
 

@@ -7,6 +7,7 @@ import { setUserInfo } from "./store/actions/actions";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ProgressBar from "./components/Progress";
+import CustomizedSnackbars from "./components/Toaster";
 
 function App() {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ function App() {
       <Router>
         <Header />
         <ProgressBar />
+        <CustomizedSnackbars />
         <Home />
         <Footer />
       </Router>

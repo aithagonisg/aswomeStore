@@ -10,6 +10,7 @@ import { Typography } from "@material-ui/core";
 import NonSecureRoute from "./Routes/NonSecureRoute";
 import ProductDescriptionPage from "../components/ProductDescriptionPage";
 import "./common.css";
+import CartPage from "../components/CartPage";
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
           path="/productDescription"
           Component={ProductDescriptionPage}
         />
+        <SecureRoute path="/cartPage" Component={CartPage} />
         <Route path="/contact">
           <ContactUsPage />
         </Route>
