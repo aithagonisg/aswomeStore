@@ -26,7 +26,7 @@ export const removeFromCart = (data) => {
   return fetch(`${API_ORIGIN}/removefromcart`, {
     method: "POST",
     headers: {
-      authorization: `Barrer ${token}`,
+      authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(data),
   });
@@ -40,7 +40,7 @@ export const getCartAndOrders = () => {
   return fetch(`${API_ORIGIN}/getCartAndOrderList`, {
     method: "POST",
     headers: {
-      authorization: `Barrer ${token}`,
+      authorization: `Bearer ${token}`,
     },
   });
 };
