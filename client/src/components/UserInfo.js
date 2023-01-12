@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Badge from "@material-ui/core/Badge";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
@@ -96,7 +96,9 @@ export default function UserInfo({ userInfo }) {
         onClose={handleClose}
       >
         <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
+        <MenuItem onClick={handleClose}>
+          <Link to="/myaccounts">My account</Link>
+        </MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
     </div>

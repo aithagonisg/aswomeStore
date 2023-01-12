@@ -25,10 +25,11 @@ export const addToCart = (data) => {
 export const removeFromCart = (data) => {
   return fetch(`${API_ORIGIN}/removefromcart`, {
     method: "POST",
+    body: JSON.stringify(data),
     headers: {
+      "Content-type": "application/json; charset=UTF-8",
       authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify(data),
   });
 };
 

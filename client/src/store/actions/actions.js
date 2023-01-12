@@ -3,6 +3,7 @@ import {
   getCartAndOrders,
   getProducts,
   addToCart,
+  removeFromCart,
 } from "../../services/API";
 import {
   USER_INFO,
@@ -89,6 +90,16 @@ export const setLoginInfo = (pathname, userinfo) => {
 export const setAddToCart = (data) => {
   return (dispatch) => {
     addToCart(data)
+      .then((res) => res.json())
+      .then((cart) => {
+        dispatch(setCartAndOrderList());
+      });
+  };
+};
+
+export const setRemoveFromCart = (data) => {
+  return (dispatch) => {
+    removeFromCart(data)
       .then((res) => res.json())
       .then((cart) => {
         dispatch(setCartAndOrderList());

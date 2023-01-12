@@ -11,6 +11,8 @@ import NonSecureRoute from "./Routes/NonSecureRoute";
 import ProductDescriptionPage from "../components/ProductDescriptionPage";
 import "./common.css";
 import CartPage from "../components/CartPage";
+import Checkout from "../components/checkout/Checkout";
+import MyAccountWrapper from "../components/myAccounts/MyAccountsWrappers";
 
 export default function Home() {
   return (
@@ -21,6 +23,8 @@ export default function Home() {
           path="/productDescription"
           Component={ProductDescriptionPage}
         />
+        <SecureRoute path="/checkout" Component={Checkout} />
+        <SecureRoute path="/myaccounts" Component={MyAccountWrapper} />
         <SecureRoute path="/cartPage" Component={CartPage} />
         <Route path="/contact">
           <ContactUsPage />

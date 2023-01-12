@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -8,8 +9,12 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableSortLabel from "@material-ui/core/TableSortLabel";
 import Paper from "@material-ui/core/Paper";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import DeleteIcon from "@material-ui/icons/Delete";
+import { Typography } from "@material-ui/core";
+import { cartTotal } from "../utils/cartTotalValue";
+import { setRemoveFromCart } from "../store/actions/actions";
+import "./CartPage.css";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -112,6 +117,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function EnhancedTable() {
   const { cart } = useSelector((state) => state.cartAndOrder);
+  const dispatch = useDispatch();
   const classes = useStyles();
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
@@ -122,10 +128,16 @@ export default function EnhancedTable() {
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
   };
+
   useEffect(() => {
     console.log(cart);
     setRows(cart?.cart || []);
   }, [cart]);
+
+  const handleRemoveItem = (item) => {
+    dispatch(setRemoveFromCart(item));
+  };
+
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
@@ -147,7 +159,7 @@ export default function EnhancedTable() {
                 (row, index) => {
                   const labelId = `enhanced-table-checkbox-${index}`;
                   return (
-                    <TableRow hover tabIndex={-1} key={row._id}>
+                    <TableRow hover tabIndex={-1} key={row.product_name}>
                       <TableCell
                         component="th"
                         id={labelId}
@@ -162,6 +174,7 @@ export default function EnhancedTable() {
                       <TableCell>
                         <DeleteIcon
                           style={{ color: "red", cursor: "pointer" }}
+                          onClick={() => handleRemoveItem(row)}
                         />
                       </TableCell>
                     </TableRow>
@@ -172,6 +185,13 @@ export default function EnhancedTable() {
           </Table>
         </TableContainer>
       </Paper>
+      {rows.length > 0 && (
+        <div className="total-amount">
+          <Typography variant="h5">Total Amount</Typography>
+          <Typography variant="h5">{cartTotal(rows)}</Typography>
+          <Link to="/checkout">Checkout</Link>
+        </div>
+      )}
     </div>
   );
 }
