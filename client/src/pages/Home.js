@@ -12,7 +12,8 @@ import ProductDescriptionPage from "../components/ProductDescriptionPage";
 import "./common.css";
 import CartPage from "../components/CartPage";
 import Checkout from "../components/checkout/Checkout";
-import MyAccountWrapper from "../components/myAccounts/MyAccountsWrappers";
+import MyAccount from "../components/myAccounts/MyAccount";
+import MyProfile from "../components/profile/Profile";
 
 export default function Home() {
   return (
@@ -24,7 +25,8 @@ export default function Home() {
           Component={ProductDescriptionPage}
         />
         <SecureRoute path="/checkout" Component={Checkout} />
-        <SecureRoute path="/myaccounts" Component={MyAccountWrapper} />
+        <SecureRoute path="/myaccounts" Component={MyAccount} />
+        <SecureRoute path="/myprofile" Component={MyProfile} />
         <SecureRoute path="/cartPage" Component={CartPage} />
         <Route path="/contact">
           <ContactUsPage />

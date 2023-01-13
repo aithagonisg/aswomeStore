@@ -4,6 +4,9 @@ import cartAndOrderReducer from "./cartAndOrders";
 import poroductsReducer from "./products";
 import progressReducer from "./progress";
 import toasterReducer from "./toaster";
+import addressReducer from "./addressReducer";
+import cardDeatilsReducer from "./cardDetailsReducer";
+import ordersReducer from "./orders";
 
 export const rootReducer = combineReducers({
   userInfo: userInfoReducer,
@@ -11,4 +14,7 @@ export const rootReducer = combineReducers({
   prouducts: poroductsReducer,
   progress: progressReducer,
   toaster: toasterReducer,
+  address: addressReducer,
+  cardDetails: cardDeatilsReducer,
+  orders: ordersReducer,
 });

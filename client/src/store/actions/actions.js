@@ -4,6 +4,9 @@ import {
   getProducts,
   addToCart,
   removeFromCart,
+  addCardDetails,
+  placeOrder,
+  addAddress,
 } from "../../services/API";
 import {
   USER_INFO,
@@ -11,6 +14,10 @@ import {
   PRODUCTS,
   SHOW_PROGRESS,
   SHOW_TOASTER,
+  CARD_DETAILS,
+  ORDER_INFO,
+  ORDERS_DATA,
+  ADDRESS_DATA,
 } from "./actionTypes";
 
 //our own actions
@@ -40,6 +47,27 @@ export const setProducts = (data) => ({
   type: PRODUCTS,
   payload: data,
 });
+
+export const setCardDetails = (data) => ({
+  type: CARD_DETAILS,
+  payload: data,
+});
+
+export const setOrderInfo = (data) => ({
+  type: ORDER_INFO,
+  payload: data,
+});
+
+export const setOrdersData = (data) => ({
+  type: ORDERS_DATA,
+  payload: data,
+});
+
+export const setAddressData = (data) => ({
+  type: ADDRESS_DATA,
+  payload: data,
+});
+
 //async
 
 export const setLoginInfo = (pathname, userinfo) => {
@@ -87,6 +115,19 @@ export const setLoginInfo = (pathname, userinfo) => {
   };
 };
 
+export const setCartAndOrderList = () => {
+  return (dispatch) => {
+    getCartAndOrders()
+      .then((res) => res.json())
+      .then((res) => {
+        dispatch(setCartAndOrders(res));
+        dispatch(setOrdersData(res.cart.orders));
+        dispatch(setAddressData(res.cart.address));
+        dispatch(setCardDetails(res.cart.cardDeatils));
+      });
+  };
+};
+
 export const setAddToCart = (data) => {
   return (dispatch) => {
     addToCart(data)
@@ -107,22 +148,40 @@ export const setRemoveFromCart = (data) => {
   };
 };
 
-export const setCartAndOrderList = () => {
-  return (dispatch) => {
-    getCartAndOrders()
-      .then((res) => res.json())
-      .then((cart) => {
-        dispatch(setCartAndOrders(cart));
-      });
-  };
-};
-
 export const setProductsList = () => {
   return (dispatch) => {
     getProducts()
       .then((res) => res.json())
       .then((products) => {
         dispatch(setProducts(products));
+      });
+  };
+};
+
+export const PlaceOrder = (orderInfo) => {
+  return (dispatch) => {
+    placeOrder(orderInfo)
+      .then((res) => res.json())
+      .then((res) => {
+        dispatch(setOrderInfo(res));
+      });
+  };
+};
+
+export const AddCardDetails = (cardDetails) => {
+  return (dispatch) => {
+    addCardDetails(cardDetails)
+      .then((res) => res.json())
+      .then((res) => {});
+  };
+};
+
+export const AddUserAddress = (addressInfo) => {
+  return (dispatch) => {
+    addAddress(addressInfo)
+      .then((res) => res.json())
+      .then((res) => {
+        dispatch(setCartAndOrderList());
       });
   };
 };

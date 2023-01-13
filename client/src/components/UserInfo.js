@@ -95,7 +95,9 @@ export default function UserInfo({ userInfo }) {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
+        <MenuItem onClick={handleClose}>
+          <Link to="/myprofile">Profile</Link>
+        </MenuItem>
         <MenuItem onClick={handleClose}>
           <Link to="/myaccounts">My account</Link>
         </MenuItem>

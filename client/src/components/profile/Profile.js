@@ -6,8 +6,9 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import AddressForm from "./AddressForm";
-import PaymentForm from "./PaymentForm";
+import OrderDetails from "./OrderDetails";
+import UserInfo from "./UserInfo";
+import Changepassword from "./Changepassword";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -29,6 +30,12 @@ function TabPanel(props) {
   );
 }
 
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.any.isRequired,
+  value: PropTypes.any.isRequired,
+};
+
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
@@ -43,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MyAccountWrapper() {
+function MyAccountTabs() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -59,16 +66,28 @@ export default function MyAccountWrapper() {
           onChange={handleChange}
           aria-label="simple tabs example"
         >
-          <Tab label="Add Address" {...a11yProps(0)} />
-          <Tab label="Add Payment Details" {...a11yProps(1)} />
+          <Tab label="UserInfo" {...a11yProps(0)} />
+          <Tab label="Change Password" {...a11yProps(1)} />
+          <Tab label="My Orders" {...a11yProps(1)} />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        <AddressForm />
+        <UserInfo />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <PaymentForm />
+        <Changepassword />
       </TabPanel>
+      <TabPanel value={value} index={2}>
+        <OrderDetails></OrderDetails>
+      </TabPanel>
+    </div>
+  );
+}
+
+export default function MyProfile() {
+  return (
+    <div>
+      <MyAccountTabs />
     </div>
   );
 }

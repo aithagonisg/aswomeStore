@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Stepper from "@material-ui/core/Stepper";
@@ -9,6 +9,8 @@ import Typography from "@material-ui/core/Typography";
 import AddressForm from "./AddressForm";
 import PaymentForm from "./PaymentForm";
 import Review from "./Review";
+import { PlaceOrder } from "../../store/actions/actions";
+import { useDispatch, useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -25,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   paper: {
-    marginTop: theme.spacing(1),
+    marginTop: theme.spacing(3),
     marginBottom: theme.spacing(3),
     padding: theme.spacing(2),
     [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
@@ -49,14 +51,26 @@ const useStyles = makeStyles((theme) => ({
 
 const steps = ["Shipping address", "Payment details", "Review your order"];
 
-function getStepContent(step) {
+function getStepContent(step, setOrderDetails, orderDetils) {
   switch (step) {
     case 0:
-      return <AddressForm />;
+      return (
+        <AddressForm
+          setOrderDetails={setOrderDetails}
+          orderDetils={orderDetils}
+        />
+      );
     case 1:
-      return <PaymentForm />;
+      return (
+        <PaymentForm
+          setOrderDetails={setOrderDetails}
+          orderDetils={orderDetils}
+        />
+      );
     case 2:
-      return <Review />;
+      return (
+        <Review setOrderDetails={setOrderDetails} orderDetils={orderDetils} />
+      );
     default:
       throw new Error("Unknown step");
   }
@@ -64,16 +78,23 @@ function getStepContent(step) {
 
 export default function Checkout() {
   const classes = useStyles();
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] = useState(0);
+
+  const [orderDetils, setOrderDetails] = useState({});
+
+  const dispatch = useDispatch();
+  const order_Info = useSelector((state) => state.orderInfo);
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
+    if (activeStep === steps.length - 1) {
+      dispatch(PlaceOrder(orderDetils));
+    }
   };
 
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
-
   return (
     <React.Fragment>
       <main className={classes.layout}>
@@ -95,14 +116,15 @@ export default function Checkout() {
                   Thank you for your order.
                 </Typography>
                 <Typography variant="subtitle1">
-                  Your order number is #2001539. We have emailed your order
-                  confirmation, and will send you an update when your order has
-                  shipped.
+                  Your order number is {order_Info?.orderId}. We have emailed
+                  your order confirmation, and will send you an update when your
+                  order has shipped. Expected Delivery Date is
+                  {order_Info?.deliveryDate}
                 </Typography>
               </React.Fragment>
             ) : (
               <React.Fragment>
-                {getStepContent(activeStep)}
+                {getStepContent(activeStep, setOrderDetails, orderDetils)}
                 <div className={classes.buttons}>
                   {activeStep !== 0 && (
                     <Button onClick={handleBack} className={classes.button}>
