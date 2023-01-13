@@ -3,9 +3,10 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import { Button } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
+import { setUpdateUserInfo } from "../../store/actions/actions";
 
 export default function UserInfo() {
-  const userData = useSelector((state) => state.userInfo);
+  const userData = useSelector((state) => state.userInfo.info);
   const dispatch = useDispatch();
 
   const [userInfo, setUserInfo] = useState({});
@@ -19,7 +20,7 @@ export default function UserInfo() {
   };
 
   const updatedUserInfo = () => {
-    // dispatch(UpdatedUserInfo(userInfo));
+    dispatch(setUpdateUserInfo(userInfo));
   };
   return (
     <div>

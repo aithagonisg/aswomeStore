@@ -16,11 +16,14 @@ export default function Body() {
       {!info.token ? (
         <Root />
       ) : (
-        <div className="card-root">
-          {products.map((item) => (
-            <ProductCard cardInfo={item} />
-          ))}
-        </div>
+        <>
+          <div>Add Filters Here</div>
+          <div className="card-root">
+            {products.map((item) => (
+              <ProductCard cardInfo={item} />
+            ))}
+          </div>
+        </>
       )}
     </>
   );

@@ -7,6 +7,7 @@ import {
   addCardDetails,
   placeOrder,
   addAddress,
+  updateUserInfo,
 } from "../../services/API";
 import {
   USER_INFO,
@@ -77,7 +78,6 @@ export const setLoginInfo = (pathname, userinfo) => {
       loginAndRegister(pathname, userinfo)
         .then((res) => res.json())
         .then((info) => {
-          console.log(info);
           if (typeof info === "string") {
             dispatch(
               showToaster({
@@ -163,6 +163,7 @@ export const PlaceOrder = (orderInfo) => {
     placeOrder(orderInfo)
       .then((res) => res.json())
       .then((res) => {
+        dispatch(setCartAndOrderList());
         dispatch(setOrderInfo(res));
       });
   };
@@ -172,7 +173,9 @@ export const AddCardDetails = (cardDetails) => {
   return (dispatch) => {
     addCardDetails(cardDetails)
       .then((res) => res.json())
-      .then((res) => {});
+      .then((res) => {
+        dispatch(setCartAndOrderList());
+      });
   };
 };
 
@@ -182,6 +185,25 @@ export const AddUserAddress = (addressInfo) => {
       .then((res) => res.json())
       .then((res) => {
         dispatch(setCartAndOrderList());
+      });
+  };
+};
+
+export const setUpdateUserInfo = (addressInfo) => {
+  return (dispatch) => {
+    updateUserInfo(addressInfo)
+      .then((res) => res.json())
+      .then((info) => {
+        localStorage.setItem(
+          "userInfo",
+          JSON.stringify({
+            firstName: info.firstName,
+            lastName: info.lastName,
+            email: info.email,
+          })
+        );
+        const userData = { ...info, token: localStorage.getItem("authToken") };
+        dispatch(setUserInfo(userData));
       });
   };
 };

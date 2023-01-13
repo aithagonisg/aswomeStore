@@ -130,7 +130,6 @@ export default function EnhancedTable() {
   };
 
   useEffect(() => {
-    console.log(cart);
     setRows(cart?.cart || []);
   }, [cart]);
 

@@ -20,7 +20,6 @@ const updateUserInfo = async (req, res, next) => {
   try {
     let user = await UpdateUserInfo.findOne({ email: req.email });
     const result = await user.updateOne({ $set: { ...req.body } });
-    console.log("userInfo updted");
     const u1 = await UpdateUserInfo.findOne({ email: req.email });
     const response = {
       firstName: u1.firstName,

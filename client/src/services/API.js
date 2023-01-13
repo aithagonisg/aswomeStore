@@ -89,3 +89,14 @@ export const updateUserInfo = (data) => {
     },
   });
 };
+
+export const updatePassword = (data) => {
+  return fetch(`${API_ORIGIN}/changepassword`, {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+      authorization: `Bearer ${token}`,
+    },
+  });
+};

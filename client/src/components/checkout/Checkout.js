@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Stepper from "@material-ui/core/Stepper";
@@ -82,8 +82,14 @@ export default function Checkout() {
 
   const [orderDetils, setOrderDetails] = useState({});
 
+  const [order_Info, setOrder_Info] = useState({});
+
   const dispatch = useDispatch();
-  const order_Info = useSelector((state) => state.orderInfo);
+  const orderInfo = useSelector((state) => state.orderInfo);
+
+  useEffect(() => {
+    setOrder_Info(orderInfo);
+  }, [orderInfo]);
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);

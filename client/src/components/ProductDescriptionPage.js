@@ -5,7 +5,6 @@ import Paper from "@material-ui/core/Paper";
 import "./Header.css";
 
 const ProductDetails = ({ cardData }) => {
-  console.log(cardData);
   return (
     <div className="product-details">
       <img

@@ -9,7 +9,6 @@ import { useSelector, useDispatch } from "react-redux";
 
 export default function CurrentAddressForm() {
   const add_store = useSelector((state) => state.address);
-  console.log(add_store);
   const dispatch = useDispatch();
   const [isPermanentAddressDisabled, setIsPermanentAddressDisabled] =
     useState(false);

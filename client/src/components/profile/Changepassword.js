@@ -6,8 +6,11 @@ import IconButton from "@material-ui/core/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { useDispatch } from "react-redux";
-
+import { updatePassword } from "../../services/API";
+import { setUserInfo, showProgress } from "../../store/actions/actions";
+import { useHistory } from "react-router-dom";
 export default function Changepassword() {
+  const history = useHistory();
   const [passwordData, setPasswordData] = useState({});
 
   const [isBtnDisable, setIsBtnDisable] = useState(false);
@@ -33,7 +36,17 @@ export default function Changepassword() {
 
   const Updatepassword = () => {
     //make api call if only passwords are correct
-    // dispatch(ChangeUserPassword(passwordData));
+    updatePassword(passwordData)
+      .then((res) => res.json())
+      .then((res) => {
+        dispatch(showProgress(true));
+        setTimeout(() => {
+          dispatch(setUserInfo({}));
+          localStorage.clear();
+          dispatch(showProgress(false));
+          history.push("/login");
+        }, 2000);
+      });
   };
   return (
     <div>

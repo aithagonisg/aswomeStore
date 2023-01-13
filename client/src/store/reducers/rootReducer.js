@@ -7,6 +7,7 @@ import toasterReducer from "./toaster";
 import addressReducer from "./addressReducer";
 import cardDeatilsReducer from "./cardDetailsReducer";
 import ordersReducer from "./orders";
+import orderInfoReducer from "./orderInfo";
 
 export const rootReducer = combineReducers({
   userInfo: userInfoReducer,
@@ -17,4 +18,5 @@ export const rootReducer = combineReducers({
   address: addressReducer,
   cardDetails: cardDeatilsReducer,
   orders: ordersReducer,
+  orderInfo: orderInfoReducer,
 });

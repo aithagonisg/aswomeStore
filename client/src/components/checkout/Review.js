@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Review({ setOrderDetails, orderDetils }) {
   const classes = useStyles();
 
-  const products = useSelector((state) => state.cart);
+  const products = useSelector((state) => state.cartAndOrder.cart.cart);
   const payments = Object.keys(orderDetils.card);
   const addresses = Object.keys(orderDetils.address);
   useEffect(() => {
